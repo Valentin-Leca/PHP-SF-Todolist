@@ -10,10 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table("user")
  * @ORM\Entity
- * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
-class User implements UserInterface
-{
+class User implements UserInterface {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -28,7 +27,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string")
      */
     private $password;
 
@@ -84,7 +83,10 @@ class User implements UserInterface
         return array('ROLE_USER');
     }
 
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
+    }
+
+    public function getUserIdentifier() {
+        return $this->username;
     }
 }

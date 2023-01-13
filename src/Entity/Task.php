@@ -9,8 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table
  */
-class Task
-{
+class Task {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
