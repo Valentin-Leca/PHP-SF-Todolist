@@ -1,8 +1,8 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    encoders:
-        App\Entity\User:
-            algorithm: auto
+#    encoders:
+#        App\Entity\User:
+#            algorithm: auto
     providers:
 #        users_in_memory: { memory: null }
         app_user_provider:
@@ -10,17 +10,22 @@ security:
                 class: App\Entity\User
                 property: username
     firewalls:
+        secured_area:
+            # ...
+            form_login:
+                # ...
+                enable_csrf: true
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
+            lazy: true
             form_login:
                 login_path: login
                 check_path: login
-                csrf_token_generator: security.csrf.token_manager
-                csrf_parameter: _csrf_token
-                csrf_token_id: authenticate
+#                csrf_token_generator: security.csrf.token_manager
+#                csrf_parameter: _csrf_token
+#                csrf_token_id: authenticate
             provider: app_user_provider
 
             logout:

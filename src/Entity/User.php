@@ -78,15 +78,14 @@ class User implements UserInterface {
         $this->email = $email;
     }
 
-    public function getRoles()
-    {
+    public function getRoles(): array {
         return array('ROLE_USER');
     }
 
     public function eraseCredentials() {
     }
 
-    public function getUserIdentifier() {
+    public function getUserIdentifier(): string {
         return $this->username;
     }
 }
