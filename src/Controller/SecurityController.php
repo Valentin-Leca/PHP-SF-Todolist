@@ -7,11 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
-{
-    /**
-     * @Route("/login", name="login")
-     */
+class SecurityController extends AbstractController {
+
+    #[Route('/login', name:"login", methods: ['GET'])]
     public function login(Request $request, AuthenticationUtils $authUtils) {
 
         return $this->render('security/login.html.twig', array(
@@ -20,17 +18,13 @@ class SecurityController extends AbstractController
         ));
     }
 
-    /**
-     * @Route("/login_check", name="login_check")
-     */
+    #[Route('/login_check', name:"login_check", methods: ['GET', 'POST'])]
     public function loginCheck() {
 
         // This code is never executed.
     }
 
-    /**
-     * @Route("/logout", name="logout")
-     */
+    #[Route('/logout', name:"logout", methods: ['GET', 'POST'])]
     public function logoutCheck() {
 
         // This code is never executed.

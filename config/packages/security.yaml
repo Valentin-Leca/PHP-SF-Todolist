@@ -1,5 +1,10 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    password_hashers:
+        App\Entity\User:
+            # Use native password hasher, which auto-selects the best
+            # possible hashing algorithm (starting from Symfony 5.3 this is "bcrypt")
+            algorithm: auto
 #    encoders:
 #        App\Entity\User:
 #            algorithm: auto
