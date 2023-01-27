@@ -1,21 +1,15 @@
 security:
 
-    password_hashers:
-        App\Entity\User:
-            algorithm: auto
-
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: username
 
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
     firewalls:
-        secured_area:
-            # ...
-            form_login:
-                # ...
-                enable_csrf: true
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,17 +17,22 @@ security:
 
         main:
             lazy: true
+            provider: app_user_provider
+            pattern: ^/
             form_login:
                 login_path: login
                 check_path: login
-#                csrf_token_generator: security.csrf.token_manager
-#                csrf_parameter: _csrf_token
-#                csrf_token_id: authenticate
-            provider: app_user_provider
-
+                csrf_parameter: _csrf_token
+                csrf_token_id: authenticate
             logout:
                 path: logout
-                target: login
+                target: homepage
+
+        secured_area:
+            form_login:
+                login_path: login
+                check_path: login
+                enable_csrf: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
