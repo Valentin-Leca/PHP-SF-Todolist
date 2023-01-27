@@ -44,11 +44,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user", orphanRemoval=true)
      */
-    private $tasks;
+    private Collection $tasks;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\Column(type="json")
+     */
+    private ?array $roles = [];
+
+    public function __construct() {
+
         $this->tasks = new ArrayCollection();
+        $this->setRoles(['ROLE_USER']);
     }
 
     public function getId(): int
@@ -81,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         $this->password = $password;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -128,6 +134,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
                 $task->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
