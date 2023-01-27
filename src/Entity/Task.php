@@ -15,7 +15,7 @@ class Task {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
@@ -26,13 +26,13 @@ class Task {
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
      */
-    private string $title;
+    private ?string $title = null;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
-    private string $content;
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="boolean")
