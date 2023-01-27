@@ -1,31 +1,38 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    encoders:
-        App\Entity\User:
-            algorithm: auto
+
     providers:
-#        users_in_memory: { memory: null }
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: username
+
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
     firewalls:
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
-            anonymous: lazy
+            lazy: true
+            provider: app_user_provider
+            pattern: ^/
             form_login:
                 login_path: login
                 check_path: login
-                csrf_token_generator: security.csrf.token_manager
                 csrf_parameter: _csrf_token
                 csrf_token_id: authenticate
-            provider: app_user_provider
-
             logout:
                 path: logout
-                target: login
+                target: homepage
+
+        secured_area:
+            form_login:
+                login_path: login
+                check_path: login
+                enable_csrf: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -35,6 +42,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
