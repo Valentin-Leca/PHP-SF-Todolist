@@ -7,6 +7,7 @@ use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/tasks')]
@@ -19,14 +20,21 @@ class TaskController extends AbstractController {
     }
 
     #[Route('', name:"task_list", methods: ['GET'])]
-    public function listTask() {
+    public function listTask(): Response {
 
         return $this->render('task/list.html.twig',
             ['tasks' => $this->entityManager->getRepository(Task::class)->findAll()]);
     }
 
+    #[Route('/over', name:"task_over", methods: ['GET'])]
+    public function listTaskOver(): Response {
+
+        return $this->render('task/list-over.html.twig',
+            ['tasks' => $this->entityManager->getRepository(Task::class)->findBy(['isDone' => 1])]);
+    }
+
     #[Route('/create', name:"task_create", methods: ['GET', 'POST'])]
-    public function createTask(Request $request) {
+    public function createTask(Request $request): Response {
 
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -48,7 +56,7 @@ class TaskController extends AbstractController {
     }
 
     #[Route('/{id}/edit', name:"task_edit", methods: ['GET', 'POST'])]
-    public function editTask(Task $task, Request $request) {
+    public function editTask(Task $task, Request $request): Response {
 
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
@@ -68,7 +76,7 @@ class TaskController extends AbstractController {
     }
 
     #[Route('/{id}/toggle', name:"task_toggle", methods: ['GET', 'POST'])]
-    public function toggleTask(Task $task) {
+    public function toggleTask(Task $task): Response {
 
         $task->toggle(!$task->isDone());
         $this->entityManager->flush();
@@ -79,7 +87,7 @@ class TaskController extends AbstractController {
     }
 
     #[Route('/{id}/delete', name:"task_delete", methods: ['GET', 'POST'])]
-    public function deleteTaskAction(Task $task) {
+    public function deleteTaskAction(Task $task): Response {
 
         $this->entityManager->remove($task);
         $this->entityManager->flush();
