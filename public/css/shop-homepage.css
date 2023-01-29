@@ -29,6 +29,11 @@ body {
     margin-top: 15px;
 }
 
+.marge-between {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .caption {
     height: 130px;
     overflow: hidden;

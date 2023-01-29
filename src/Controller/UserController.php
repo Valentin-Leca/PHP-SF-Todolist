@@ -73,5 +73,3 @@ class UserController extends AbstractController {
         return $this->render('user/edit.html.twig', ['form' => $form, 'user' => $user]);
     }
 }
-
-// TODO Créer data fixtures avec user "Anonyme" avec ses tâches qui lui sont rattachées.
