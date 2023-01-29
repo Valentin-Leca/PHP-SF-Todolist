@@ -21,6 +21,14 @@ body {
     border-radius: 4px;
 }
 
+.marge-up {
+    margin-bottom: 15px;
+}
+
+.marge-down {
+    margin-top: 15px;
+}
+
 .caption {
     height: 130px;
     overflow: hidden;
