@@ -34,6 +34,7 @@
     </div>
     {% if tasks %}
         <a href="{{ path('task_create') }}" class="marge-down btn btn-info pull-right">Créer une tâche</a>
+        <a href="{{ path('task_list') }}" class="marge-down marge-between btn btn-warning pull-right">Consulter la liste des tâches à faire</a>
     {% else %}
         <div class="alert alert-warning text-center" role="alert">
             Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning">Créer une tâche</a>
