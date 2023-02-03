@@ -5,33 +5,28 @@
 {% block body %}
     <div class="row">
         {% for task in tasks %}
-            {% if task.isDone == 0 %}
+            {% if task.isDone == 1 %}
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
                         <div class="caption">
                             <h4 class="pull-right">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                {% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}
                             </h4>
                             <h4>{{ task.title }}</h4>
                             <p>{{ task.content }}</p>
                         </div>
-                        <div>
-                            {% if (task.user.id == app.user.id) or (task.user.username == "Anonyme" and app.user.roles.0 == "ROLE_ADMIN") %}
+                        {% if (task.user.id == app.user.id) or (task.user.username == "Anonyme" and app.user.roles.0 == "ROLE_ADMIN") %}
+                            <div>
                                 <form action="{{ path('task_toggle', {'id' : task.id }) }}">
-                                    <button class="btn btn-success btn-sm pull-right marge-down marge-up">
+                                    <button class="btn btn-success btn-sm pull-right marge-down marge-up marge-between">
                                         {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
                                     </button>
                                 </form>
-                            {% endif %}
-                            {% if (task.user.id == app.user.id) or (app.user.roles.0 == "ROLE_ADMIN") %}
-                                <a href="{{ path('task_edit', {'id' : task.id }) }}"><button class="btn btn-success btn-sm pull-right marge-down marge-up marge-between">Editer</button></a>
-                            {% endif %}
-                            {% if (task.user.id == app.user.id) or (task.user.username == "Anonyme" and app.user.roles.0 == "ROLE_ADMIN") %}
                                 <form action="{{ path('task_delete', {'id' : task.id }) }}">
                                     <button class="btn btn-danger btn-sm pull-right marge-down marge-up">Supprimer</button>
                                 </form>
-                            {% endif %}
-                        </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -39,7 +34,7 @@
     </div>
     {% if tasks %}
         <a href="{{ path('task_create') }}" class="marge-down btn btn-info pull-right">Créer une tâche</a>
-        <a href="{{ path('task_over') }}" class="marge-down marge-between btn btn-success pull-right">Consulter la liste des tâches terminées</a>
+        <a href="{{ path('task_list') }}" class="marge-down marge-between btn btn-warning pull-right">Consulter la liste des tâches à faire</a>
     {% else %}
         <div class="alert alert-warning text-center" role="alert">
             Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning">Créer une tâche</a>

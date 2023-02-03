@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid tm-mt-60 text-center">
+        <div class="row mb-1">
+            <div class="col-12 justify-content-center align-items-center">
+                <h1>Stop !</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    Vous ne pouvez pas accéder à cette page.
+                    <a href="{{ path('homepage') }}">retournez à la page d'accueil</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
