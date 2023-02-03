@@ -10,45 +10,32 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Table("user")
- * @ORM\Entity
- * @UniqueEntity("username")
- */
+#[ORM\Entity]
+#[UniqueEntity(fields:["username"], message: "Inscription Impossible ! Ce login existe déjà, veuillez en choisir un autre.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private ?int $id;
 
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    private ?int $id = null;
+
+    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: false)]
+    #[Assert\NotBlank(message: "Vous devez saisir un nom d'utilisateur.")]
     private ?string $username = null;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
-     * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
-     * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
-     */
+    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: false)]
+    #[Assert\NotBlank(message: "Vous devez saisir une adresse email.")]
+    #[Assert\Email(message: "Le format de l'adresse n'est pas correcte.")]
     private ?string $email = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: Task::class, orphanRemoval: true)]
     private Collection $tasks;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
+    #[Assert\NotNull()]
     private ?array $roles = [];
 
     public function __construct() {

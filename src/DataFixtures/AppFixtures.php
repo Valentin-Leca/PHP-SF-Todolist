@@ -30,7 +30,7 @@ class AppFixtures extends Fixture {
         $task = new Task();
         $task->setTitle("Titre accueil");
         $task->setContent("Aller sur la page d'accueil et centrer le titre.");
-        $task->setCreatedAt(date_create());
+        $task->setCreatedAt(date_create_immutable());
         $task->setUser($user);
         $manager->persist($task);
         $manager->flush();
@@ -46,7 +46,7 @@ class AppFixtures extends Fixture {
         $task = new Task();
         $task->setTitle("Visuel");
         $task->setContent("Refaire le visuel de la page des tâche.");
-        $task->setCreatedAt(date_create());
+        $task->setCreatedAt(date_create_immutable());
         $task->setUser($user);
         $manager->persist($task);
         $manager->flush();
@@ -54,7 +54,7 @@ class AppFixtures extends Fixture {
         $task = new Task();
         $task->setTitle("Tâches terminées");
         $task->setContent("Ajouter la liste des tâches terminées visible.");
-        $task->setCreatedAt(date_create());
+        $task->setCreatedAt(date_create_immutable());
         $task->setUser($user);
         $manager->persist($task);
         $manager->flush();
