@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid tm-mt-60 text-center">
+        <div class="row mb-1">
+            <div class="col-12 justify-content-center align-items-center">
+                <h1>Erreur !</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    Une erreur est survenue. Veuillez nous excuser pour la gêne occasionnée
+                    <a href="{{ path('homepage') }}">retournez à la page d'accueil</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
