@@ -73,3 +73,5 @@ class UserController extends AbstractController {
         return $this->render('user/edit.html.twig', ['form' => $form, 'user' => $user]);
     }
 }
+
+// TODO refaire les audits de la 6.2

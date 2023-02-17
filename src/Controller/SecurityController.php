@@ -19,15 +19,8 @@ class SecurityController extends AbstractController {
         ));
     }
 
-    #[Route('/login_check', name:"login_check", methods: ['GET', 'POST'])]
-    public function loginCheck() {
-
-        // This code is never executed.
-    }
-
-    #[Route('/logout', name:"logout", methods: ['GET'])]
-    public function logoutCheck() {
-
-        // This code is never executed.
+    #[Route('/logout', name: 'logout', methods: ['GET'])]
+    public function logout(): void {
+        // controller can be blank: it will never be called!
     }
 }
