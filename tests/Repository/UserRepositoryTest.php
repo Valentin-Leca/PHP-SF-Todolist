@@ -4,33 +4,41 @@ namespace App\Tests\Repository;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserRepositoryTest extends WebTestCase {
+class UserRepositoryTest extends KernelTestCase {
 
-//    public function testSave() {
-//
-//        $client = static::createClient();
-//
-//        $newUser = new User();
-//        $newUser->setUsername('testSave');
-//        $newUser->setPassword('testSave');
-//        $newUser->setEmail('test.save@testsave.fr');
-//        $newUser->setRoles(['ROLE_USER']);
-//
-//        static::getContainer()->set(UserRepository::class)->save($newUser);
-//
-//        $this->assertNotNull(static::getContainer()->get(UserRepository::class)->findOneByUsername('testSave'));
-//    }
+    public function testUserSave() {
 
-    public function testRemove() {
+        self::bootKernel();
 
-        $userToDelete = static::getContainer()->get(UserRepository::class)->findOneByUsername('jean');
-        $userRepository = static::getContainer()->get(UserRepository::class);
+        $newUser = new User();
+        $newUser->setUsername('testSave');
+        $newUser->setPassword('testSave');
+        $newUser->setEmail('test.save@testsave.fr');
+        $newUser->setRoles(['ROLE_USER']);
 
-        $userRepository->remove($userToDelete, true);
+        $this->assertInstanceOf(User::class, $newUser);
 
-        $this->assertNull(static::getContainer()->get(UserRepository::class)->findOneByUsername('jean'));
+        $userRepository = new UserRepository(static::getContainer()->get(ManagerRegistry::class));
+        $userRepository->save($newUser, true);
+
+
+        $this->assertNotNull($userRepository->findOneByUsername('testSave'));
     }
 
+    public function testUserRemove() {
+
+        self::bootKernel();
+
+        $userRepository = new UserRepository(static::getContainer()->get(ManagerRegistry::class));
+
+        $user = $userRepository->findOneBy(['username' => 'testSave']);
+        $this->assertInstanceOf(User::class, $user);
+
+        $userRepository->remove($user, true);
+
+        $this->assertNull($userRepository->findOneBy(['username' => 'testSave']));
+    }
 }
