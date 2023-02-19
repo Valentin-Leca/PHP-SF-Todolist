@@ -102,7 +102,7 @@ class TaskController extends AbstractController {
     }
 
     #[Route('/{id}/delete', name:"task_delete", methods: ['GET', 'POST'])]
-    public function deleteTaskAction(Task $task): Response {
+    public function deleteTask(Task $task): Response {
 
         if ($this->getUser() !== $task->getUser()) {
             throw $this->createAccessDeniedException();
