@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     #[ORM\Column(type: 'string', nullable: false)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     #[Assert\NotBlank(message: "Vous devez saisir une adresse email.")]
     #[Assert\Email(message: "Le format de l'adresse n'est pas correcte.")]
     private ?string $email = null;
@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         $this->setRoles(['ROLE_USER']);
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
