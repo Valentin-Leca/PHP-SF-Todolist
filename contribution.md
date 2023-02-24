@@ -58,3 +58,13 @@ Pour résumer, suivez ce modèle lors de vos commits :
 git commit -m '<catégorie : faire quelque chose ; faire d'autres choses>'
 ````
 
+## Tests avec PHPUnit
+
+Pour lancer les tests unitaires et fonctionnels, utilisez cette commande.<br/>
+
+````
+vendor/bin/phpunit --coverage-html public/test-coverage
+````
+
+Cela va générer des html analysant le taux de couverture de code avec tous les détails permettant d'améliorer les tests.
+
