@@ -1,0 +1,35 @@
+// <root-dir>/site.webmanifest
+{
+    // the primary locale of the app as a valid HTML language attribute
+    // (see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+    "lang": "fr",
+
+    // the name of the web application as it is usually displayed to the user
+    "name": "To Do & Co",
+    // a shorter variant of the app name to be displayed when there is not
+    // enough space (e.g. as a label for an icon on the phone home screen).
+    "short_name": "TODO",
+
+    // use it to explain what the application does
+    "description": "Site de partage de tâches à accomplir.",
+
+    // the preferred URL to be loaded when the user launches the web app
+    // (this is just a hint, so user agents can ignore this value)
+    "start_url": "https://127.0.0.1:8000/",
+
+    // the preferred orientation of the web app contents
+    // (see https://developer.mozilla.org/en-US/docs/Web/Manifest/orientation)
+    "orientation": "natural",
+
+    // determines how much of browser interface is displayed when running the app
+    // "browser" = display the full browser window; "fullscreen" = display no browser interface
+    // (see https://developer.mozilla.org/en-US/docs/Web/Manifest/display)
+    "display": "fullscreen",
+
+    // the placeholder background color used for the app before its stylesheet is loaded
+    // Once the stylesheet is loaded, the real background color from the app is used
+    "background_color": "#FFFFFFFF",
+    // the default theme color for the application, which affects how the operating system
+    // displays the site (e.g. on Android's task switcher, the theme color surrounds the site)
+    "theme_color": "#009999",
+}

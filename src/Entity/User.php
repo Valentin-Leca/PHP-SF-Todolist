@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[UniqueEntity(fields:["username"], message: "Inscription Impossible ! Ce login existe déjà, veuillez en choisir un autre.")]
-class User implements UserInterface, PasswordAuthenticatedUserInterface {
-
+class User implements UserInterface, PasswordAuthenticatedUserInterface
+{
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(name: 'id', type: 'integer')]
@@ -38,8 +38,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     #[Assert\NotNull()]
     private ?array $roles = [];
 
-    public function __construct() {
-
+    public function __construct()
+    {
         $this->tasks = new ArrayCollection();
         $this->setRoles(['ROLE_USER']);
     }
@@ -54,14 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): self
     {
         $this->username = $username;
-    }
 
-    public function getSalt()
-    {
-        return null;
+        return $this;
     }
 
     public function getPassword(): string
@@ -69,9 +66,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -79,21 +78,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    public function getRoles(): array {
+    public function getRoles(): array
+    {
         $roles = $this->roles;
         $roles[] = "ROLE_USER";
         return array_unique($roles);
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials(): void
+    {
     }
 
-    public function getUserIdentifier(): string {
+    public function getUserIdentifier(): string
+    {
         return $this->username;
     }
 
