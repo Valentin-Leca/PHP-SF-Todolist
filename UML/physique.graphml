@@ -32,7 +32,7 @@
           </y:NodeLabel>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="77.505859375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="204.712890625" x="4.0" xml:space="preserve" y="70.2470703125">title : VARCHAR(255)     NOT NULL
 content : TEXT   NOT NULL
-created_at : DATE   NOT NULL
+created_at : DATETIME   NOT NULL
 user_id : INTEGER   NOT NULL  [FK]
 is_done : boolean NOT NULL<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="-0.5" labelRatioY="0.5" nodeRatioX="-0.5" nodeRatioY="0.37427769045857984" offsetX="4.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:StyleProperties>
