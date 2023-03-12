@@ -12,41 +12,45 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/tasks')]
-class TaskController extends AbstractController {
-
+class TaskController extends AbstractController
+{
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
         $this->entityManager = $entityManager;
     }
 
     #[Route('', name:"task_list", methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
-    public function listTask(): Response {
-
-        return $this->render('task/list.html.twig',
-            ['tasks' => $this->entityManager->getRepository(Task::class)->findAll()]);
+    public function listTask(): Response
+    {
+        return $this->render(
+            'task/list.html.twig',
+            ['tasks' => $this->entityManager->getRepository(Task::class)->findAll()]
+        );
     }
 
     #[Route('/over', name:"task_over", methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
-    public function listTaskOver(): Response {
-
-        return $this->render('task/list-over.html.twig',
-            ['tasks' => $this->entityManager->getRepository(Task::class)->findBy(['isDone' => 1])]);
+    public function listTaskOver(): Response
+    {
+        return $this->render(
+            'task/list-over.html.twig',
+            ['tasks' => $this->entityManager->getRepository(Task::class)->findBy(['isDone' => 1])]
+        );
     }
 
     #[Route('/create', name:"task_create", methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function createTask(Request $request): Response {
-
+    public function createTask(Request $request): Response
+    {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $task->setUser($this->getUser());
             $this->entityManager->persist($task);
             $this->entityManager->flush();
@@ -61,15 +65,13 @@ class TaskController extends AbstractController {
 
     #[Route('/{id}/edit', name:"task_edit", methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function editTask(Task $task, Request $request): Response {
-
-        if (in_array('ROLE_ADMIN',$this->getUser()->getRoles()) || $this->getUser() === $task->getUser()) {
-
+    public function editTask(Task $task, Request $request): Response
+    {
+        if (in_array('ROLE_ADMIN', $this->getUser()->getRoles()) || $this->getUser() === $task->getUser()) {
             $form = $this->createForm(TaskType::class, $task);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $this->entityManager->flush();
                 $this->addFlash('success', 'La tâche a bien été modifiée.');
 
@@ -82,13 +84,12 @@ class TaskController extends AbstractController {
             ]);
         }
         throw $this->createAccessDeniedException();
-
     }
 
     #[Route('/{id}/toggle', name:"task_toggle", methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function toggleTask(Task $task): Response {
-
+    public function toggleTask(Task $task): Response
+    {
         if ($this->getUser() !== $task->getUser()) {
             throw $this->createAccessDeniedException();
         }
@@ -102,8 +103,8 @@ class TaskController extends AbstractController {
     }
 
     #[Route('/{id}/delete', name:"task_delete", methods: ['GET', 'POST'])]
-    public function deleteTask(Task $task): Response {
-
+    public function deleteTask(Task $task): Response
+    {
         if ($this->getUser() !== $task->getUser()) {
             throw $this->createAccessDeniedException();
         }

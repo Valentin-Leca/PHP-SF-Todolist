@@ -13,34 +13,35 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/users')]
-class UserController extends AbstractController {
-
+class UserController extends AbstractController
+{
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
         $this->entityManager = $entityManager;
     }
 
     #[Route('', name:"user_list", methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function listUser(): Response {
-
-        return $this->render('user/list.html.twig',
+    public function listUser(): Response
+    {
+        return $this->render(
+            'user/list.html.twig',
             ['users' => $this->entityManager->getRepository(User::class)->findAll()]
         );
     }
 
     #[Route('/create', name:"user_create", methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request, UserPasswordHasherInterface $hasher): Response {
-
+    public function create(Request $request, UserPasswordHasherInterface $hasher): Response
+    {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user->setPassword($hasher->hashPassword($user, $user->getPassword()));
 
             $this->entityManager->persist($user);
@@ -54,14 +55,13 @@ class UserController extends AbstractController {
 
     #[Route('/{id}/edit', name:"user_edit", methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function editUser(User $user, Request $request, UserPasswordHasherInterface $hasher): Response {
-
+    public function editUser(User $user, Request $request, UserPasswordHasherInterface $hasher): Response
+    {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user->setPassword($hasher->hashPassword($user, $user->getPassword()));
 
             $this->entityManager->flush();
