@@ -1,5 +1,7 @@
 # Symfony Insight Analyse
 
+[![SymfonyInsight](https://insight.symfony.com/projects/c78c4c6f-a713-424e-a9c5-de9d65b41500/mini.svg)](https://insight.symfony.com/projects/c78c4c6f-a713-424e-a9c5-de9d65b41500)
+
 [Disponible ici](https://insight.symfony.com/projects/6c144d03-fdd2-49f5-bab9-7ac3211e3701/analyses/25?status=commit)
 
 
